@@ -45,8 +45,7 @@ export class Persistency {
 
     public static getTrainingData(clientId: string, clientSecret: string): ITrainingData {
         const path = `${Persistency.basePath}/${clientId}/training-data.json`
-        const all = fs.readJSON(path)
-        return all.filter((e: any) => e.clientId === clientId)
+        return fs.readJSON(path)
     }
 
     public static saveTrainingData(clientId: string, trainingData: ITrainingData): void {
