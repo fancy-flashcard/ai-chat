@@ -1,3 +1,5 @@
+import { NLProcessor } from "./nlprocessor";
+
 export interface IDocument {
     languageCode: string
     inputText: string
@@ -28,4 +30,9 @@ export interface IMessage {
 
 export interface IRegistrationResult {
   newClientSecret: string
+}
+
+export interface INLProcessorHandle {
+  clientId: string,
+  nlprocessor: NLProcessor
 }

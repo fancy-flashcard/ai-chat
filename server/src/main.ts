@@ -5,11 +5,13 @@ import * as path from 'path'
 import * as fs from 'fs-sync'
 import * as cors from 'cors'
 import { Logger } from '@nestjs/common';
+import { NLProcessor } from './nlprocessor';
 
 async function bootstrap() {
 
   const logger: Logger = new Logger('bootstrap')
 
+  NLProcessor.loadNLProcessors()
   const config = fs.readJSON(path.join(path.resolve(''), './../.env.json'))
 
   if (config.httpPort > 0) {

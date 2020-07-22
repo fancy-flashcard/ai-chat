@@ -17,9 +17,4 @@ export class ClientController {
       return this.clientService.getTrainingData(clientId, clientSecret);
     }
 
-    @Get('registerClient')
-    registerClient(@Query('clientId') clientId: string, @Query('adminKey') adminKey: string): IRegistrationResult {
-      return this.clientService.registerClient(clientId, adminKey);
-    }
-
 }

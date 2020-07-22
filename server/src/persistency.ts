@@ -14,17 +14,31 @@ export class Persistency {
 
     private static readonly pathToSecrets = `${Persistency.basePath}/clients-to-secrets.json`
 
-    public static registerClient(clientId: string, adminKey: string): IRegistrationResult {
+    private static clientsToSecrets = fs.readJSON(Persistency.pathToSecrets)
+
+    public static getAllRegisteredClients(): string[] {
+        const clientIds: any[] = []
+        for (const entry of Persistency.clientsToSecrets) {
+            clientIds.push({
+                clientId: entry.clientId,
+                languageCode: entry.languageCode
+            })
+        }
+
+        return clientIds
+    }
+
+    public static registerClient(clientId: string, languageCode: string, adminKey: string): IRegistrationResult {
         const newClientSecret = uuidv4();
         fs.write(`${Persistency.basePath}/${clientId}/training-data.json`, JSON.stringify([]))
         fs.write(`${Persistency.basePath}/${clientId}/messages.json`, JSON.stringify([]))
 
-        const clientsToSecrets = fs.readJSON(Persistency.pathToSecrets)
-        clientsToSecrets.push({
+        Persistency.clientsToSecrets.push({
             clientId,
-            clientSecret: newClientSecret
+            clientSecret: newClientSecret,
+            languageCode
         })
-        fs.write(Persistency.pathToSecrets, JSON.stringify(clientsToSecrets))
+        fs.write(Persistency.pathToSecrets, JSON.stringify(Persistency.clientsToSecrets))
 
         return { newClientSecret }
     }
@@ -39,7 +53,6 @@ export class Persistency {
         const path = `${Persistency.basePath}/${clientId}/training-data.json`
         fs.write(path, JSON.stringify(trainingData))
     }
-
 
     public static getMessages(clientId: string, clientSecret: string, theLastXMessages: number): any[] {
         const path = `${Persistency.basePath}/${clientId}/messages.json`

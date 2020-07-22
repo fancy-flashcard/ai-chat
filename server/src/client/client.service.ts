@@ -1,6 +1,5 @@
 import { Injectable } from '@nestjs/common';
 import { Persistency } from '../persistency';
-import { IRegistrationResult } from '../interfaces';
 
 @Injectable()
 export class ClientService {
@@ -13,7 +12,4 @@ export class ClientService {
         return Persistency.getTrainingData(clientId, clientSecret)
     }
 
-    public registerClient(clientId: string, adminKey: string): IRegistrationResult {
-        return Persistency.registerClient(clientId, adminKey)
-    }
 }

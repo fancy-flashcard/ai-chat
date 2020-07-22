@@ -1,0 +1,2 @@
+
+GET http://localhost:3000/admin/registerClient?clientId=1234&languageCode=de&&adminKey=123
