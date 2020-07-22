@@ -1,1 +1,1 @@
-GET http://localhost:3000/getTrainingData?clientId=1234&clientSecret=123
+GET http://localhost:3000/client/getTrainingData?clientId=1234&clientSecret=123

@@ -1,0 +1,1 @@
+GET http://localhost:3000/client/registerClient?clientId=1234&adminKey=123

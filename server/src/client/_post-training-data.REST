@@ -1,4 +1,4 @@
-POST http://localhost:3000/postTrainingData?clientId=1234&clientSecret=123 HTTP/1.1
+POST http://localhost:3000/client/postTrainingData?clientId=1234&clientSecret=123 HTTP/1.1
 content-type: application/json
 
 {

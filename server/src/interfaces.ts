@@ -20,3 +20,12 @@ export interface IDocument {
     defaultResponses: string[]
   }
   
+export interface IMessage {
+  text: string,
+  resp: string,
+  time: string
+}
+
+export interface IRegistrationResult {
+  newClientSecret: string
+}
