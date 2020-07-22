@@ -1,0 +1,22 @@
+{
+    "documentsAndAnswers": {
+        "documents": [
+            {
+                "languageCode": "en",
+                "inputText": "Hi",
+                "intentName": "greetings.hi"
+            }
+        ],
+        "answers": [
+            {
+                "languageCode": "en",
+                "intentName": "greetings.hi",
+                "answerText": ":) Hi"
+            }
+        ]
+    },
+    "defaultResponses": [
+        "I don't know what to say.",
+        "What should I say?"
+    ]
+}

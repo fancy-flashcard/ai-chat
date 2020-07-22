@@ -1,0 +1,1 @@
+GET http://localhost:3000/getResponse?clientId=1234&input=super&languageCode=de
