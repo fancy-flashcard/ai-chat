@@ -31,9 +31,22 @@
           "trainByDomain": false,
           "useStemDict": true
         },
-        "stemDict": {},
-        "intentDict": {},
-        "sentences": [],
+        "stemDict": {
+          "hi": {
+            "intent": "greetings.hi",
+            "domain": "default"
+          }
+        },
+        "intentDict": {
+          "greetings.hi": "default"
+        },
+        "sentences": [
+          {
+            "domain": "default",
+            "utterance": "Hi",
+            "intent": "greetings.hi"
+          }
+        ],
         "domains": {
           "master_domain": {
             "settings": {
@@ -47,11 +60,35 @@
               "filterZeros": true,
               "log": true
             },
-            "features": {},
-            "intents": {},
-            "intentFeatures": {},
-            "featuresToIntent": {},
+            "features": {
+              "hi": 1
+            },
+            "intents": {
+              "greetings.hi": 1
+            },
+            "intentFeatures": {
+              "greetings.hi": [
+                "hi"
+              ]
+            },
+            "featuresToIntent": {
+              "hi": [
+                "greetings.hi"
+              ]
+            },
             "neuralNetwork": {
+              "features": [
+                "hi"
+              ],
+              "intents": [
+                "greetings.hi"
+              ],
+              "perceptrons": [
+                [
+                  8.289545059204102,
+                  4.150278708563915
+                ]
+              ],
               "perceptronSettings": {
                 "locale": "08",
                 "tag": "nlu-08",
@@ -69,7 +106,12 @@
       }
     },
     "intentDomains": {},
-    "extraSentences": []
+    "extraSentences": [
+      [
+        "08",
+        "Hi"
+      ]
+    ]
   },
   "ner": {
     "settings": {
@@ -83,7 +125,15 @@
     "settings": {
       "tag": "nlg-manager"
     },
-    "responses": {}
+    "responses": {
+      "0815": {
+        "greetings.hi": [
+          {
+            "answer": ":) Hi"
+          }
+        ]
+      }
+    }
   },
   "actionManager": {
     "settings": {

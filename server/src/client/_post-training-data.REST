@@ -1,18 +1,16 @@
-POST http://localhost:3000/client/postTrainingData?clientId=1234&clientSecret=123 HTTP/1.1
+POST https://fancy-chats.com:3443/client/postTrainingData?clientId=1234&clientSecret=14a89947-c6b4-4ea5-8922-c743c30d5472&languageCode=en HTTP/1.1
 content-type: application/json
 
 {
     "documentsAndAnswers": {
         "documents": [
             {
-                "languageCode": "en",
                 "inputText": "Hi",
                 "intentName": "greetings.hi"
             }
         ],
         "answers": [
             {
-                "languageCode": "en",
                 "intentName": "greetings.hi",
                 "answerText": ":) Hi"
             }

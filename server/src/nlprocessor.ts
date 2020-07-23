@@ -1,5 +1,5 @@
 
-import { INLProcessorHandle } from './interfaces'
+import { INLProcessorHandle, ITrainingData } from './interfaces'
 import { Persistency } from './persistency';
 
 const { NlpManager } = require('node-nlp');
@@ -12,9 +12,10 @@ export class NLProcessor {
         let handle = NLProcessor.handles.filter((e: INLProcessorHandle) => e.clientId === clientId)[0]
 
         if (handle === undefined) {
+            const trainingData = Persistency.getTrainingData(clientId, 'abc')
             const newHandle: INLProcessorHandle = {
                 clientId,
-                nlprocessor: new NLProcessor(languageCode)
+                nlprocessor: new NLProcessor(languageCode, trainingData)
             }
 
             NLProcessor.handles.push(newHandle)
@@ -24,42 +25,40 @@ export class NLProcessor {
         return handle.nlprocessor
     }
 
-    private readonly manager
-
+    private readonly manager: any
+    
     public static loadNLProcessors() {
         const allRegisteredClients: any[] = Persistency.getAllRegisteredClients()
-
+        
         for (const entry of allRegisteredClients){
             NLProcessor.getInstance(entry.clientId, entry.languageCode)
         }
     }
+    
+    private readonly languageCode: string
 
-    public constructor(languageCode: string) {
+    public constructor(languageCode: string, trainingData: ITrainingData) {
+        this.languageCode = languageCode
+
         this.manager = new NlpManager({ languages: [languageCode] });
 
         setTimeout(async() => {
-            await this.manager.train();
-            this.manager.save();
+            await this.train(trainingData)
         }, 1) // sometimes we need some async tricks
     }
 
-    public train() {
-        this.manager.addDocument('en', 'goodbye for now', 'greetings.bye');
-        this.manager.addDocument('en', 'bye bye take care', 'greetings.bye');
-        this.manager.addDocument('en', 'okay see you later', 'greetings.bye');
-        this.manager.addDocument('en', 'bye for now', 'greetings.bye');
-        this.manager.addDocument('en', 'i must go', 'greetings.bye');
-        this.manager.addDocument('en', 'hello', 'greetings.hello');
-        this.manager.addDocument('en', 'hi', 'greetings.hello');
-        this.manager.addDocument('en', 'howdy', 'greetings.hello');
+    public async train(trainingData: ITrainingData): Promise<void> {
 
-        // Train also the NLG
-        this.manager.addAnswer('en', 'greetings.bye', 'Till next time');
-        this.manager.addAnswer('en', 'greetings.bye', 'see you soon!');
-        this.manager.addAnswer('en', 'greetings.hello', 'Hey there!');
-        this.manager.addAnswer('en', 'greetings.hello', 'Greetings!');
+        for (const document of trainingData.documentsAndAnswers.documents){
+            this.manager.addDocument(this.languageCode, document.inputText, document.intentName);
+        }
+        for (const answer of trainingData.documentsAndAnswers.answers){
+            this.manager.addAnswer(this.languageCode, answer.intentName, answer.answerText);
+        }
 
-        // Train and save the model.
+        await this.manager.train();
+        this.manager.save();
+
     }
 
 

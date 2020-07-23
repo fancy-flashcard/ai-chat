@@ -20,8 +20,8 @@ export class ClientController {
   }
 
   @Post('postTrainingData')
-  postTrainingData(@Req() req: any, @Query('clientId') clientId: string, @Query('clientSecret') clientSecret: string): void {
-    this.clientService.postTrainingData(clientId, req.body);
+  postTrainingData(@Req() req: any, @Query('clientId') clientId: string, @Query('languageCode') languageCode: string, @Query('clientSecret') clientSecret: string): void {
+    this.clientService.postTrainingData(clientId,languageCode, req.body);
   }
 
 }

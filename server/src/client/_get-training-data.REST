@@ -1,1 +1,1 @@
-GET http://localhost:3000/client/getTrainingData?clientId=1234&clientSecret=123
+GET https://fancy-chats.com:3443/client/getTrainingData?clientId=1234&clientSecret=14a89947-c6b4-4ea5-8922-c743c30d5472

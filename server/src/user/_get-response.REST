@@ -1,2 +1,2 @@
 
-GET http://localhost:3000/user/getResponse?clientId=1234&input=Hi&languageCode=de
+GET https://fancy-chats.com:3443/user/getResponse?clientId=1234&input=Hi&languageCode=de
