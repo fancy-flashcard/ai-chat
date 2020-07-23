@@ -75,7 +75,7 @@ async function addMessageFromUser() {
         document.getElementById('input').value = ''
 
         const clearedUserMessage = replaceAllConfusingCharactersInUserInput(usersMessage)
-        const nlpURL = `https://fancy-chats.com/user/getResponse?clientId=1234&input=${clearedUserMessage}&languageCode=de`
+        const nlpURL = `https://fancy-chats.com:3443/user/getResponse?clientId=1234&input=${clearedUserMessage}&languageCode=de`
 
         console.log(nlpURL)
         let response
