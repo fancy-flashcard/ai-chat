@@ -12,7 +12,7 @@ async function bootstrap() {
   const logger: Logger = new Logger('bootstrap')
 
   NLProcessor.loadNLProcessors()
-  const config = fs.readJSON(path.join(path.resolve(''), './../.env.json'))
+  const config = fs.readJSON(path.join(__dirname, '/../../.env.json'))
 
   if (config.httpPort > 0) {
     const app: any = await NestFactory.create(AppModule);

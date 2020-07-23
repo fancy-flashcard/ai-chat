@@ -10,7 +10,7 @@ export class Persistency {
 
     private static readonly logger: Logger = new Logger(Persistency.name)
 
-    private static readonly basePath = path.join(__dirname, './../../operational-data/')
+    private static readonly basePath = path.join(__dirname, '/../../operational-data/')
 
     private static readonly pathToSecrets = `${Persistency.basePath}/clients-to-secrets.json`
 
