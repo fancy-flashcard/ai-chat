@@ -1,22 +1,18 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
-<link rel="stylesheet" href="./style.css">
-<link rel="scripts" href="./scripts.js">
-
+<!-- <link type="text/css" rel="stylesheet" href="https://raw.githubusercontent.com/fancy-flashcard/ai-chat/master/static-assets/style.css"> -->
+<link type="text/css" rel="stylesheet" href="style.css">
 
 <div id="allOfIt" class="allOfIt">
-
     <button id="open-button" class="open-button" onclick="openClose()">Chat</button>
     <div class="form-container" id="myForm">
-
         <span id="myClose" class="close" onclick="closeForm()">
             &times;
         </span>
 
         <div id="messages" class="messages-area">
-
             <div class="profile-area">
-                <img class="profile-image" src=""
+                <img class="profile-image" src="https://raw.githubusercontent.com/fancy-flashcard/ai-chat/master/lucky-luke-on-horse.gif"
                      alt="Card image">
                 <p></p>
                 <h3 style="text-align: center;">Lucky Luke<span class="dot"></span> </h3>
@@ -34,13 +30,13 @@
                 </button>
             </div>
         </div>
-
-
     </div>
 </div>
 
+
 <script>
     let formIsOpen = false
+
 function startListening() {
     let theInputElement = document.getElementById('input')
     theInputElement.addEventListener("keyup", function (event) {
@@ -50,10 +46,10 @@ function startListening() {
         }
     })
 }
-startListening()
 let messages = []
 let pause = false
 let welcomeSent = false
+startListening()
 
 function getLinkHTML(text, url) {
     return `<a href="${url}">${text}</a>`
@@ -124,7 +120,7 @@ function showWelcomeMessage() {
 
     messagesDiv.innerHTML = messagesDiv.innerHTML +
         `<div>
-                <b>Lucky Luke:</b>
+                <b>Maya:</b>
                 <br>
             </div>
             Hi :)
@@ -179,7 +175,7 @@ async function showResponseToTheUser(result) {
 
     messagesDiv.innerHTML = messagesDiv.innerHTML.replace(`Lucky Luke is writing......<p><br></p>`, '') +
         `
-                        <b>Lucky Luke:</b><br>
+                        <b>Maya:</b><br>
                         ${result}
                         <p><br></p>
         `

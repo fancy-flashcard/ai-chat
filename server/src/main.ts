@@ -17,7 +17,8 @@ async function bootstrap() {
   if (config.httpPort > 0) {
     const app: any = await NestFactory.create(AppModule);
     useSwagger(app)
-    app.useStaticAssets(path.join(path.resolve(''), './static-assets'))
+    app.useStaticAssets(path.join(path.resolve(''), './../static-assets'))
+    logger.log(`using static assets from: ${path.join(path.resolve(''), './../static-assets')}`)
     logger.log(`listening on port: ${config.httpPort}`)
     await app.listen(config.httpPort);
 

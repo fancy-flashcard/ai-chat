@@ -1,4 +1,5 @@
 let formIsOpen = false
+
 function startListening() {
     let theInputElement = document.getElementById('input')
     theInputElement.addEventListener("keyup", function (event) {
@@ -8,10 +9,10 @@ function startListening() {
         }
     })
 }
-startListening()
 let messages = []
 let pause = false
 let welcomeSent = false
+startListening()
 
 function getLinkHTML(text, url) {
     return `<a href="${url}">${text}</a>`
