@@ -6,6 +6,10 @@ import * as fs from 'fs-sync'
 import * as cors from 'cors'
 import { Logger } from '@nestjs/common';
 import { NLProcessor } from './nlprocessor';
+import * as express from 'express'
+
+const logger = new Logger('main.ts')
+let forwarded = false
 
 async function bootstrap() {
 
@@ -18,26 +22,27 @@ async function bootstrap() {
     const app: any = await NestFactory.create(AppModule);
     useSwagger(app)
     app.useStaticAssets(path.join(path.resolve(''), './../static-assets'))
-    logger.log(`using static assets from: ${path.join(path.resolve(''), './../static-assets')}`)
+    app.useStaticAssets(path.join(path.resolve(''), './../static-assets-demo'))
     logger.log(`listening on port: ${config.httpPort}`)
     await app.listen(config.httpPort);
-
   }
+
   if (config.httpsPort > 0) {
-
-    const certificate = fs.read(config.pathToCert)
-    const privateKey = fs.read(config.pathToKey)
-    const credentials = { key: privateKey, cert: certificate }
-
-
-    const appHTTPs: any = await NestFactory.create(AppModule, { httpsOptions: credentials })
+    const appHTTPs: any = await NestFactory.create(AppModule, { httpsOptions: getHTTPSCredentials(config) })
     useSwagger(appHTTPs)
     appHTTPs.useStaticAssets(path.join(path.resolve(''), './static-assets'))
+    appHTTPs.useStaticAssets(path.join(path.resolve(''), './static-assets-demo'))
     configureCORS(appHTTPs)
-
     await appHTTPs.listen(config.httpsPort);
   }
 
+  ensureRedirectingFromUnsafeHostToSaveHost()
+}
+
+function getHTTPSCredentials(config){
+  const certificate = fs.read(config.pathToCert)
+  const privateKey = fs.read(config.pathToKey)
+  return { key: privateKey, cert: certificate }
 }
 
 function configureCORS(appHTTPs) {
@@ -73,5 +78,32 @@ function useSwagger(app) {
   SwaggerModule.setup('api', app, document);
 }
 
+function ensureRedirectingFromUnsafeHostToSaveHost() {
+  const httpForwarderAPPListeningOnUnsafePort = express()
+
+  httpForwarderAPPListeningOnUnsafePort.get('*', (req, res) => {
+    if (!forwarded) {
+      forwarded = true
+      setTimeout(() => {
+        forwarded = false
+      }, 400)
+      res.redirect('https://fancy-chats.com:3443')
+    } else {
+      logger.log('relaxing')
+    }
+  })
+}
+
+export function getRedirectHTML(target: string): string {
+  return `<!DOCTYPE html>
+      <html>
+        <head>
+          <meta http-equiv="refresh" content="0; url='${target}'" />
+        </head>
+        <body>
+          <p>Redirecting to https: <a href="${target}">${target}/</a></p>
+        </body>
+      </html>`
+}
 
 bootstrap();
