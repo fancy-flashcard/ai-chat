@@ -9,4 +9,4 @@ npm config set ignore-scripts false
 
 npm run build
 
-# pm2 restart ai-chat
+pm2 restart ai-chat
