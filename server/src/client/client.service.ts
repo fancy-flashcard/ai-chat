@@ -1,10 +1,12 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, Logger } from '@nestjs/common';
 import { Persistency } from '../persistency';
 import { ITrainingData } from '../interfaces';
 
 @Injectable()
 export class ClientService {
 
+    private readonly logger = new Logger(ClientService.name)
+    
     public getMessages(clientId: string, clientSecret: string, theLastXMessages: number){
         return Persistency.getMessages(clientId, clientSecret, theLastXMessages)
     }
